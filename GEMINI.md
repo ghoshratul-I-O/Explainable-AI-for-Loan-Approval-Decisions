@@ -9,3 +9,8 @@
 
 ## Current Active Phase
 - **Phase 1:** Dataset Understanding and Exploratory Data Analysis (`notebooks/01_EDA.ipynb`).
+
+## Session Progress & Resume Checkpoint
+- **Last Status:** Project repository initialized and configured with dependencies and `.gitignore`.
+- **Notebook Created:** `notebooks/01_EDA.ipynb` (contains Step 1.1 environment setup and Step 1.2 initial `train.csv` ingestion).
+- **Next Immediate Action:** Execute the initial cells in `01_EDA.ipynb` to inspect dataset shape and initial columns, then proceed to analyze data types, missing values, and target balance.
