@@ -8,7 +8,7 @@
 - Keep Python code modular, well-commented, and easy to explain in an ML Engineer interview.
 
 ## Development Roadmap
-- [ ] **Phase 1:** Dataset Understanding & EDA (`notebooks/EDA.ipynb`)
+- [x] **Phase 1:** Dataset Understanding & EDA (`notebooks/EDA.ipynb`) - COMPLETED
 - [ ] **Phase 2:** Data Cleaning & Preprocessing
 - [ ] **Phase 3:** Feature Engineering
 - [ ] **Phase 4:** Model Training & Comparison (Logistic Regression, Decision Tree, Random Forest, XGBoost)
@@ -19,8 +19,8 @@
 - [ ] **Phase 9:** Deployment & Documentation (Streamlit Cloud, GitHub)
 
 ## Current Active Phase
-- **Phase 1:** Dataset Understanding and Exploratory Data Analysis (`notebooks/EDA.ipynb`).
+- **Phase 2:** Data Cleaning and Preprocessing.
 
 ## Session Progress & Resume Checkpoint
-- **Status:** Phase 1 started in `notebooks/EDA.ipynb`.
-- **Immediate Next Step:** Run Steps 1.2 to 1.5 in `EDA.ipynb` (Target balance, missingness audit, feature categorization), then analyze continuous risk drivers (LTV, Disbursed Amount, CNS Bureau Score).
+- **Status:** Phase 1 (EDA) completed with key risk factors identified (Target imbalance ~22%, LTV risk escalation, Bureau scoring, Credit inquiries, Employment missingness).
+- **Immediate Next Step:** Phase 2 Data Cleaning & Preprocessing (handling missing values, identifying anomalies/outliers, dropping leaky/unusable ID columns, and encoding preparation).
