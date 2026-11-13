@@ -27,3 +27,4 @@ Loan/
 ## Current Status
 - **Active Phase:** Phase 1 — Dataset Understanding and Exploratory Data Analysis.
 - **Next Step:** Run initial cells in `notebooks/01_EDA.ipynb` to inspect dimensions, data types, and initial records of `data/train.csv`.
+
