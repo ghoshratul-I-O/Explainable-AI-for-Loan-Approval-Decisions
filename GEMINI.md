@@ -19,8 +19,14 @@
 - [ ] **Phase 9:** Deployment & Documentation (Streamlit Cloud, GitHub)
 
 ## Current Active Phase
-- **Phase 2:** Data Cleaning and Preprocessing.
+- **Phase 2:** Data Cleaning and Preprocessing (`notebooks/02_Preprocessing.ipynb`).
 
 ## Session Progress & Resume Checkpoint
-- **Status:** Phase 1 (EDA) completed with key risk factors identified (Target imbalance ~22%, LTV risk escalation, Bureau scoring, Credit inquiries, Employment missingness).
-- **Immediate Next Step:** Phase 2 Data Cleaning & Preprocessing (handling missing values, identifying anomalies/outliers, dropping leaky/unusable ID columns, and encoding preparation).
+- **Status:** Phase 1 (EDA) completed in `notebooks/EDA.ipynb`.
+- **Active Notebook:** `notebooks/02_Preprocessing.ipynb` initialized with 5 clean, focused cells:
+  - Step 2.1: Library imports & dataset ingestion.
+  - Step 2.2: Missing value imputation for `Employment.Type`.
+  - Step 2.3: Data sanity and financial range boundary checks.
+  - Step 2.4: Removal of leaky/overfitting identifier columns (`UniqueID`, `supplier_id`, `Current_pincode_ID`, `Employee_code_ID`).
+  - Step 2.5: Export clean baseline dataset to `data/train_cleaned.csv`.
+- **Immediate Next Action:** Execute the cells in `02_Preprocessing.ipynb` and confirm the export.
