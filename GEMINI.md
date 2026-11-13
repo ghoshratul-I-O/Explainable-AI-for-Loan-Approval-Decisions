@@ -9,8 +9,8 @@
 
 ## Development Roadmap
 - [x] **Phase 1:** Dataset Understanding & EDA (`notebooks/EDA.ipynb`) - COMPLETED
-- [ ] **Phase 2:** Data Cleaning & Preprocessing
-- [ ] **Phase 3:** Feature Engineering
+- [x] **Phase 2:** Data Cleaning & Preprocessing (`notebooks/02_Preprocessing.ipynb`) - COMPLETED
+- [ ] **Phase 3:** Feature Engineering (`notebooks/03_Feature_Engineering.ipynb`)
 - [ ] **Phase 4:** Model Training & Comparison (Logistic Regression, Decision Tree, Random Forest, XGBoost)
 - [ ] **Phase 5:** Model Evaluation (ROC-AUC, PR-AUC, F1, Recall)
 - [ ] **Phase 6:** Explainable AI (SHAP & LIME)
@@ -19,14 +19,8 @@
 - [ ] **Phase 9:** Deployment & Documentation (Streamlit Cloud, GitHub)
 
 ## Current Active Phase
-- **Phase 2:** Data Cleaning and Preprocessing (`notebooks/02_Preprocessing.ipynb`).
+- **Phase 3:** Feature Engineering (`notebooks/03_Feature_Engineering.ipynb`).
 
 ## Session Progress & Resume Checkpoint
-- **Status:** Phase 1 (EDA) completed in `notebooks/EDA.ipynb`.
-- **Active Notebook:** `notebooks/02_Preprocessing.ipynb` initialized with 5 clean, focused cells:
-  - Step 2.1: Library imports & dataset ingestion.
-  - Step 2.2: Missing value imputation for `Employment.Type`.
-  - Step 2.3: Data sanity and financial range boundary checks.
-  - Step 2.4: Removal of leaky/overfitting identifier columns (`UniqueID`, `supplier_id`, `Current_pincode_ID`, `Employee_code_ID`).
-  - Step 2.5: Export clean baseline dataset to `data/train_cleaned.csv`.
-- **Immediate Next Action:** Execute the cells in `02_Preprocessing.ipynb` and confirm the export.
+- **Status:** Phase 2 completed. Cleaned dataset generated at `data/train_cleaned.csv` (233,154 rows × 37 columns, 0 nulls, leaky IDs dropped).
+- **Immediate Next Action:** Initialize Phase 3: Feature Engineering (`notebooks/03_Feature_Engineering.ipynb`) to create applicant age, parse account tenure durations, flag new-to-credit borrowers, compute financial ratios, and encode categorical features.
