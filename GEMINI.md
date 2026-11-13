@@ -9,8 +9,8 @@
 
 ## Development Roadmap
 - [x] **Phase 1:** Dataset Understanding & EDA (`notebooks/EDA.ipynb`) - COMPLETED
-- [x] **Phase 2:** Data Cleaning & Preprocessing (`notebooks/02_Preprocessing.ipynb`) - COMPLETED
-- [ ] **Phase 3:** Feature Engineering (`notebooks/03_Feature_Engineering.ipynb`)
+- [x] **Phase 2:** Data Cleaning & Preprocessing (`notebooks/Preprocessing.ipynb`) - COMPLETED
+- [x] **Phase 3:** Feature Engineering (`notebooks/Feature_Engineering.ipynb`) - COMPLETED
 - [ ] **Phase 4:** Model Training & Comparison (Logistic Regression, Decision Tree, Random Forest, XGBoost)
 - [ ] **Phase 5:** Model Evaluation (ROC-AUC, PR-AUC, F1, Recall)
 - [ ] **Phase 6:** Explainable AI (SHAP & LIME)
@@ -19,8 +19,8 @@
 - [ ] **Phase 9:** Deployment & Documentation (Streamlit Cloud, GitHub)
 
 ## Current Active Phase
-- **Phase 3:** Feature Engineering (`notebooks/03_Feature_Engineering.ipynb`).
+- **Phase 4:** Model Training and Comparison (`notebooks/Model_Training.ipynb`).
 
 ## Session Progress & Resume Checkpoint
-- **Status:** Phase 2 completed. Cleaned dataset generated at `data/train_cleaned.csv` (233,154 rows × 37 columns, 0 nulls, leaky IDs dropped).
-- **Immediate Next Action:** Initialize Phase 3: Feature Engineering (`notebooks/03_Feature_Engineering.ipynb`) to create applicant age, parse account tenure durations, flag new-to-credit borrowers, compute financial ratios, and encode categorical features.
+- **Status:** Phase 2 and Phase 3 completed. Engineered dataset ready at `data/train_features.csv` (233,154 rows × 44 numeric features, 0 nulls).
+- **Immediate Next Action:** Initialize Phase 4 (`notebooks/Model_Training.ipynb`) to implement stratified train-test split, scale features, train 4 benchmark models (Logistic Regression, Decision Tree, Random Forest, XGBoost), and compare baseline ROC-AUC / PR-AUC scores.
