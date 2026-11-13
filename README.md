@@ -1,30 +1,59 @@
-# Explainable AI - Loan Default Prediction
+# Explainable AI for Loan Default Prediction
 
-An end-to-end Machine Learning project to predict vehicle loan defaults with explainability (SHAP) and deployment-ready architecture.
+An end-to-end Machine Learning project to predict vehicle loan default risk and interpret predictions using Explainable AI (SHAP, LIME), fairness auditing, and an interactive Streamlit application.
+
+**Dataset:** LTFS Vehicle Loan Default Prediction (India)  
+**Objective:** Predict the likelihood of loan default and explain the primary drivers behind each individual decision.
+
+---
+
+## Development Roadmap
+
+| Phase | Task | Key Techniques & Tools |
+| :--- | :--- | :--- |
+| **Phase 1** | **Dataset Understanding & EDA** | Pandas, Matplotlib, Seaborn |
+| **Phase 2** | **Data Cleaning & Preprocessing** | Outlier handling, encoding, missing imputation |
+| **Phase 3** | **Feature Engineering** | Date parsing, tenure durations, ratio features |
+| **Phase 4** | **Model Training & Comparison** | Logistic Regression, Decision Tree, Random Forest, XGBoost |
+| **Phase 5** | **Model Evaluation** | Precision, Recall, F1, ROC-AUC, PR-AUC, Threshold optimization |
+| **Phase 6** | **Explainable AI (XAI)** | SHAP (Global & Local values), LIME |
+| **Phase 7** | **Fairness & Bias Analysis** | Fairlearn (demographic parity, equalized odds) |
+| **Phase 8** | **Dashboard Development** | Streamlit (Risk overview, prediction engine, what-if simulator) |
+| **Phase 9** | **Deployment & Documentation** | Streamlit Community Cloud, GitHub |
+
+---
+
+## Application Features
+1. **Portfolio Risk Dashboard:** High-level default statistics, risk segments, and portfolio health.
+2. **Real-time Default Predictor:** Enter applicant details to get instant risk probability.
+3. **Explainable AI (XAI):** Waterfall and force plots visualizing why an applicant was approved or flagged.
+4. **Interactive "What-If" Simulator:** Tweak parameters (loan amount, down payment, bureau score) to observe impact on risk.
+
+---
 
 ## Project Structure
 
 ```text
 Loan/
-├── data/                      # Dataset files (train.csv, test.csv, sample_submission.csv)
-├── notebooks/                 # Jupyter notebooks for iterative, phased analysis
-│   └── 01_EDA.ipynb           # Phase 1: Exploratory Data Analysis & data understanding
-├── models/                    # Serialized models and scalers (future phase)
-├── reports/                   # Generated reports and figures
-│   └── visualizations/
-├── app.py                     # Streamlit application (future phase)
-├── requirements.txt           # Project dependencies
-├── .gitignore                 # Ignored files (data files, cache, virtual environment)
-├── GEMINI.md                  # Project rules & phase tracking
-└── README.md                  # Project overview and roadmap
+├── data/
+│   ├── train.csv                      # Training data (233,154 records)
+│   ├── test.csv                       # Test data (held-out)
+│   ├── sample_submission.csv
+│   └── data_dictionary.md             # Comprehensive schema reference
+├── notebooks/
+│   └── EDA.ipynb                      # Phase 1: Interactive EDA & hypothesis testing
+├── models/                            # Trained pipelines & serialized models
+├── reports/
+│   └── visualizations/                # Generated publication-quality figures
+├── app.py                             # Streamlit web application
+├── requirements.txt                   # Environment dependencies
+├── .gitignore                         # Data & environment exclusion rules
+├── GEMINI.md                          # Workflow rules & active phase tracker
+└── README.md                          # Project documentation & roadmap
 ```
 
-## Workflow Constraints & Rules
-- **Phase-by-phase execution:** Code is developed interactively per phase.
-- **Strict Leakage Prevention:** `data/test.csv` is never inspected or evaluated during EDA, feature engineering, or training.
-- **Explainability Focus:** Clear feature importance and decision explanations suitable for production and engineering discussions.
+---
 
 ## Current Status
-- **Active Phase:** Phase 1 — Dataset Understanding and Exploratory Data Analysis.
-- **Next Step:** Run initial cells in `notebooks/01_EDA.ipynb` to inspect dimensions, data types, and initial records of `data/train.csv`.
-
+- **Active Phase:** **Phase 1 — Dataset Understanding and Exploratory Data Analysis (`notebooks/EDA.ipynb`)**
+- **Next Step:** Run univariate and bivariate analysis on credit attributes, loan-to-value (LTV), and bureau scores.
