@@ -43,3 +43,4 @@
 | `CREDIT.HISTORY.LENGTH` | Time elapsed since first credit account opening | String / Duration |
 | `NO.OF_INQUIRIES` | Number of inquiries made by customer for loans | Discrete (Numerical) |
 | `loan_default` | **Target:** 1 if applicant defaulted on 1st EMI, 0 otherwise | Binary Target |
+
