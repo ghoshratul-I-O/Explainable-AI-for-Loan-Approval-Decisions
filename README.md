@@ -1,7 +1,8 @@
 # Explainable-AI-for-Loan-Approval-Decisions
 End-to-end vehicle loan default prediction pipeline using XGBoost, evaluated with local and global explainability via SHAP and LIME.
-Deployed & Running webapp link : https://xai-loan-approval-decision.streamlit.app/
-Dataset link : https://www.kaggle.com/datasets/manovirat/ltfs-dataset
+
+##### Deployed & Running webapp link : https://xai-loan-approval-decision.streamlit.app/
+##### Dataset link : https://www.kaggle.com/datasets/manovirat/ltfs-dataset
 
 
 ## Overview
