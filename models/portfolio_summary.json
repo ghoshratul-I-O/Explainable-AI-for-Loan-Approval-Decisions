@@ -1,0 +1,22 @@
+{
+  "total_loans": 233154,
+  "overall_default_rate": 21.70711203753742,
+  "avg_disbursed_amount": 54356.993527882856,
+  "avg_asset_cost": 75865.06814380195,
+  "avg_ltv": 74.74653001878588,
+  "avg_bureau_score": 289.46299441570807,
+  "pct_new_to_credit": 50.15998009899037,
+  "avg_applicant_age": 34.100946155759715,
+  "default_by_employment": {
+    "Salaried": 20.35,
+    "Self employed": 22.77,
+    "Missing": 21.46
+  },
+  "default_by_inquiries": {
+    "0": 21.07,
+    "1": 24.42,
+    "2": 27.57,
+    "3": 29.26,
+    "4+": 34.93
+  }
+}
