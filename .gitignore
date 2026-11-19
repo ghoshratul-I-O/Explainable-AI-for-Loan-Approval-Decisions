@@ -16,3 +16,10 @@ env/
 .DS_Store
 .vscode/
 
+# Agent metadata & notes
+.agents/
+GEMINI.md
+gemini.md
+README.md
+readme.md
+
