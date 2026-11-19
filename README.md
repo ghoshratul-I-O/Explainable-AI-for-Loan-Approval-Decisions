@@ -1,11 +1,6 @@
 # Explainable-AI-for-Loan-Approval-Decisions
 End-to-end vehicle loan default prediction pipeline using XGBoost, evaluated with local and global explainability via SHAP and LIME.
 
-# Explainable AI for Loan Default Prediction
-
-An end-to-end Machine Learning pipeline to predict vehicle loan default risk and interpret individual credit decisions using SHAP, LIME, and Fairlearn, accompanied by an interactive Streamlit web dashboard.
-
----
 
 ## Overview
 
