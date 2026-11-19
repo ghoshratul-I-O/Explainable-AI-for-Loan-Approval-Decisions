@@ -13,14 +13,14 @@
 - [x] **Phase 3:** Feature Engineering (`notebooks/Feature_Engineering.ipynb`) - COMPLETED
 - [x] **Phase 4:** Model Training & Comparison (Logistic Regression, Decision Tree, Random Forest, XGBoost) - COMPLETED
 - [x] **Phase 5:** Model Evaluation & Threshold Tuning (Confusion Matrix, PR Curve, Optimal Threshold ~0.485) - COMPLETED
-- [ ] **Phase 6:** Explainable AI (SHAP & LIME)
+- [x] **Phase 6:** Explainable AI (SHAP Global Beeswarm, Local Waterfall, LIME Surrogates) - COMPLETED
 - [ ] **Phase 7:** Fairness & Bias Analysis (Fairlearn)
 - [ ] **Phase 8:** Dashboard Development (Streamlit)
 - [ ] **Phase 9:** Deployment & Documentation (Streamlit Cloud, GitHub)
 
 ## Current Active Phase
-- **Phase 6:** Explainable AI (`notebooks/Explainable_AI.ipynb`).
+- **Phase 7:** Fairness and Bias Analysis (`notebooks/Fairness_Analysis.ipynb`).
 
 ## Session Progress & Resume Checkpoint
-- **Status:** Phase 4 and Phase 5 completed. Best model (XGBoost, ROC-AUC 0.656, Max F1 0.4099 @ threshold ~0.485) and feature artifacts saved in `models/`.
-- **Immediate Next Action:** Initialize Phase 6 (`notebooks/Explainable_AI.ipynb`) to compute SHAP TreeExplainer, global feature summary plots, local borrower decision waterfall plots, and LIME explanations.
+- **Status:** Phase 6 (Explainable AI) successfully executed in `notebooks/Explainable_AI.ipynb`. Both SHAP (Global Beeswarm, Feature Importance, Local Waterfall) and LIME rule-based surrogate explanations generated.
+- **Immediate Next Action:** Initialize Phase 7 (`notebooks/Fairness_Analysis.ipynb`) using Fairlearn to audit algorithmic fairness and demographic parity across sensitive applicant segments (e.g., employment type, geography, age groups).
