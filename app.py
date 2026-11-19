@@ -20,7 +20,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom Styling
+# Custom Styling (CSS Injection)
 st.markdown("""
 <style>
     .main-title {
@@ -35,7 +35,7 @@ st.markdown("""
         margin-bottom: 1.5rem;
     }
     .metric-card {
-        background: #F3F4F6;
+        background: #F8FAFC;
         padding: 1.1rem;
         border-radius: 10px;
         border-left: 5px solid #1E3A8A;
@@ -44,34 +44,37 @@ st.markdown("""
     .risk-badge-low {
         background-color: #D1FAE5;
         color: #065F46;
-        padding: 0.4rem 0.8rem;
+        padding: 0.5rem 1rem;
         border-radius: 8px;
         font-weight: 700;
         display: inline-block;
+        font-size: 1.05rem;
     }
     .risk-badge-med {
         background-color: #FEF3C7;
         color: #92400E;
-        padding: 0.4rem 0.8rem;
+        padding: 0.5rem 1rem;
         border-radius: 8px;
         font-weight: 700;
         display: inline-block;
+        font-size: 1.05rem;
     }
     .risk-badge-high {
         background-color: #FEE2E2;
         color: #991B1B;
-        padding: 0.4rem 0.8rem;
+        padding: 0.5rem 1rem;
         border-radius: 8px;
         font-weight: 700;
         display: inline-block;
+        font-size: 1.05rem;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# Helper Functions: Load Models & Metadata
+# High-Performance Caching: Model & Metadata
 # ---------------------------------------------------------
-@st.cache_resource
+@st.cache_resource(show_spinner="Loading ML models & explainers...")
 def load_model_artifacts():
     base_path = Path(__file__).parent if "__file__" in locals() else Path(".")
     models_dir = base_path / "models" if (base_path / "models").exists() else Path("models")
@@ -106,19 +109,25 @@ with st.sidebar:
         max_value=0.70,
         value=0.50,
         step=0.05,
-        help="Applicants with predicted default risk equal or above this value are flagged as high risk."
+        help="Applicants with predicted default probability >= cutoff are flagged as high risk."
     )
     if threshold < 0.45:
-        st.caption("🛡️ **Loss Minimization (Conservative):** Higher recall, catches more defaulters.")
+        st.info("🛡️ **Loss Minimization (Conservative):** Maximizes default recall, intercepts more defaulters.")
     elif threshold > 0.55:
-        st.caption("🚀 **Growth Mode:** Higher precision, fewer false alarms, higher loan volume.")
+        st.warning("🚀 **Growth Mode (Aggressive):** Higher precision, fewer false alarms, higher approval rate.")
     else:
-        st.caption("⚖️ **Balanced Baseline:** Optimal F1-score (~0.41).")
+        st.success("⚖️ **Balanced Baseline:** Peak F1-score (~0.41).")
         
     st.divider()
-    st.caption("Explainable AI for Loan Default Prediction\n(Phase 8 Production Dashboard)")
+    st.markdown("""
+    **Model Specs:**
+    - Algorithm: **XGBoost Classifier**
+    - Val ROC-AUC: **0.656**
+    - Features: **43 attributes**
+    - Framework: **SHAP & Fairlearn**
+    """)
 
-# Header
+# Main Header
 st.markdown('<div class="main-title">Explainable AI: Vehicle Loan Default Risk</div>', unsafe_allow_html=True)
 st.markdown('<div class="sub-title">Real-time risk scoring, transparent credit underwriting, and interactive SHAP decision explanations.</div>', unsafe_allow_html=True)
 
@@ -148,38 +157,40 @@ with tab1:
     with c1:
         st.markdown("#### Default Risk by Employment Type")
         emp_data = portfolio_summary['default_by_employment']
-        fig, ax = plt.subplots(figsize=(6, 3.5))
-        bars = ax.bar(emp_data.keys(), emp_data.values(), color=['#2b5c8f', '#d95f02', '#7570b3'], width=0.45)
-        ax.set_ylabel("Default Rate (%)")
-        ax.axhline(portfolio_summary['overall_default_rate'], color='black', linestyle='--', label='Portfolio Avg (21.7%)')
-        for bar in bars:
+        fig1, ax1 = plt.subplots(figsize=(6, 3.5))
+        bars1 = ax1.bar(emp_data.keys(), emp_data.values(), color=['#2b5c8f', '#d95f02', '#7570b3'], width=0.45)
+        ax1.set_ylabel("Default Rate (%)")
+        ax1.axhline(portfolio_summary['overall_default_rate'], color='black', linestyle='--', label='Portfolio Avg (21.7%)')
+        for bar in bars1:
             yval = bar.get_height()
-            ax.text(bar.get_x() + bar.get_width()/2, yval + 0.4, f"{yval:.1f}%", ha='center', fontweight='bold')
-        ax.set_ylim(0, 30)
-        ax.legend(loc='lower right')
-        st.pyplot(fig)
+            ax1.text(bar.get_x() + bar.get_width()/2, yval + 0.4, f"{yval:.1f}%", ha='center', fontweight='bold')
+        ax1.set_ylim(0, 30)
+        ax1.legend(loc='lower right')
+        st.pyplot(fig1)
+        plt.close(fig1)
         
     with c2:
         st.markdown("#### Default Risk by Number of Loan Inquiries")
         inq_data = portfolio_summary['default_by_inquiries']
-        fig, ax = plt.subplots(figsize=(6, 3.5))
-        bars = ax.bar(inq_data.keys(), inq_data.values(), color='#e7298a', width=0.45)
-        ax.set_ylabel("Default Rate (%)")
-        ax.set_xlabel("Number of Inquiries in Last 6 Months")
-        for bar in bars:
+        fig2, ax2 = plt.subplots(figsize=(6, 3.5))
+        bars2 = ax2.bar(inq_data.keys(), inq_data.values(), color='#e7298a', width=0.45)
+        ax2.set_ylabel("Default Rate (%)")
+        ax2.set_xlabel("Number of Inquiries in Last 6 Months")
+        for bar in bars2:
             yval = bar.get_height()
-            ax.text(bar.get_x() + bar.get_width()/2, yval + 0.5, f"{yval:.1f}%", ha='center', fontweight='bold')
-        ax.set_ylim(0, 40)
-        st.pyplot(fig)
+            ax2.text(bar.get_x() + bar.get_width()/2, yval + 0.5, f"{yval:.1f}%", ha='center', fontweight='bold')
+        ax2.set_ylim(0, 40)
+        st.pyplot(fig2)
+        plt.close(fig2)
 
 # ---------------------------------------------------------
-# Helper function: Prepare input vector
+# Helper function: Vector Builder
 # ---------------------------------------------------------
 def build_feature_vector(input_dict):
     data = feature_defaults.copy()
     data.update(input_dict)
     
-    # Compute auto-derived features
+    # Auto-derive financial leverage & equity
     data['ltv'] = (data['disbursed_amount'] / data['asset_cost']) * 100
     data['down_payment'] = data['asset_cost'] - data['disbursed_amount']
     data['is_new_to_credit'] = 1 if data['PERFORM_CNS.SCORE'] == 0 else 0
@@ -199,7 +210,7 @@ def build_feature_vector(input_dict):
     df_row = pd.DataFrame([data])
     return df_row[feature_names]
 
-# Initialize session state for active applicant
+# Initialize applicant session state
 if "applicant_input" not in st.session_state:
     st.session_state["applicant_input"] = {
         'asset_cost': 75000,
@@ -219,13 +230,12 @@ if "applicant_input" not in st.session_state:
 # ---------------------------------------------------------
 with tab2:
     st.subheader("New Loan Application Assessment")
-    st.caption("Enter customer financial profile to evaluate default risk.")
+    st.caption("Enter customer details to generate an instantaneous credit risk assessment.")
     
-    # Quick Preset Profiles
-    preset = st.radio(
+    # Presets
+    preset = st.selectbox(
         "Load Quick Benchmark Profile:",
-        ["Custom Entry", "Safe Prime Borrower (Low Risk)", "Thin-File / First-Time Buyer", "High-Risk Over-Leveraged"],
-        horizontal=True
+        ["Current / Custom Entry", "Safe Prime Borrower (Low Risk)", "Thin-File / First-Time Buyer", "High-Risk Over-Leveraged"]
     )
     
     if preset == "Safe Prime Borrower (Low Risk)":
@@ -246,14 +256,15 @@ with tab2:
             'emp_type': 'Self employed', 'PERFORM_CNS.SCORE': 380, 'NO.OF_INQUIRIES': 4,
             'PRI.OVERDUE.ACCTS': 2, 'DELINQUENT.ACCTS.IN.LAST.SIX.MONTHS': 1
         })
-        
+
+    # Input Form (Prevents premature reruns)
     with st.form("loan_application_form"):
         c1, c2, c3 = st.columns(3)
         
         with c1:
             st.markdown("##### 🚗 Loan & Vehicle Details")
             asset_cost = st.number_input("Vehicle Cost (₹)", min_value=30000, max_value=500000, value=int(st.session_state["applicant_input"]['asset_cost']), step=5000)
-            disbursed_amount = st.number_input("Requested Loan Amount (₹)", min_value=15000, max_value=int(asset_cost), value=int(st.session_state["applicant_input"]['disbursed_amount']), step=5000)
+            disbursed_amount = st.number_input("Requested Loan Amount (₹)", min_value=15000, max_value=int(asset_cost), value=int(min(st.session_state["applicant_input"]['disbursed_amount'], asset_cost)), step=5000)
             calc_ltv = (disbursed_amount / asset_cost) * 100
             calc_dp = asset_cost - disbursed_amount
             st.info(f"**LTV Leverage:** {calc_ltv:.1f}%\n\n**Down Payment:** ₹{calc_dp:,.0f}")
@@ -290,14 +301,15 @@ with tab2:
         
     # Evaluate current applicant
     current_vec = build_feature_vector(st.session_state["applicant_input"])
-    prob_default = model.predict_proba(current_vec)[0, 1]
+    prob_default = float(model.predict_proba(current_vec)[0, 1])
     is_default_flagged = prob_default >= threshold
     
     st.markdown("---")
-    res_c1, res_c2, res_c3 = st.columns([1, 1, 1.5])
+    res_c1, res_c2, res_c3 = st.columns([1, 1, 1.8])
     
     with res_c1:
         st.metric("Predicted Default Probability", f"{prob_default:.1%}")
+        st.progress(min(max(prob_default, 0.0), 1.0))
     with res_c2:
         st.metric("Current Decision Cutoff", f"{threshold:.1%}")
     with res_c3:
@@ -312,6 +324,24 @@ with tab2:
             st.markdown('<div class="risk-badge-high">🛑 FLAGGED / HIGH RISK: Default Alert</div>', unsafe_allow_html=True)
             st.caption("Counter-offer required: request a 10%+ higher down payment or guarantor.")
 
+    # Export report download button
+    report_text = f"""--- LOAN UNDERWRITING REPORT ---
+Vehicle Cost: INR {st.session_state['applicant_input']['asset_cost']:,}
+Disbursed Loan: INR {st.session_state['applicant_input']['disbursed_amount']:,}
+LTV Ratio: {current_vec['ltv'].iloc[0]:.2f}%
+Bureau Score: {st.session_state['applicant_input']['PERFORM_CNS.SCORE']}
+Employment Type: {st.session_state['applicant_input']['emp_type']}
+Predicted Default Probability: {prob_default:.2%}
+Decision Cutoff Threshold: {threshold:.2%}
+Outcome: {'FLAGGED / HIGH RISK' if is_default_flagged else 'APPROVED / PASS'}
+"""
+    st.download_button(
+        label="📄 Download Assessment Memo (.txt)",
+        data=report_text,
+        file_name=f"credit_assessment_{st.session_state['applicant_input']['age']}yo_{prob_default:.0%}.txt",
+        mime="text/plain"
+    )
+
 # ---------------------------------------------------------
 # TAB 3: Explainable AI (SHAP)
 # ---------------------------------------------------------
@@ -321,16 +351,16 @@ with tab3:
     
     active_vec = build_feature_vector(st.session_state["applicant_input"])
     shap_val = explainer(active_vec)
-    curr_prob = model.predict_proba(active_vec)[0, 1]
+    curr_prob = float(model.predict_proba(active_vec)[0, 1])
     
-    fig, ax = plt.subplots(figsize=(9, 5))
+    fig3, ax3 = plt.subplots(figsize=(9, 5))
     shap.plots.waterfall(shap_val[0], max_display=10, show=False)
     plt.title(f"SHAP Waterfall: Prediction Path (P = {curr_prob:.1%})", fontsize=12, pad=10)
     plt.tight_layout()
-    st.pyplot(fig)
+    st.pyplot(fig3)
+    plt.close(fig3)
     
     st.markdown("#### 🔍 Plain-English Decision Drivers")
-    # Identify top positive & negative features
     shap_series = pd.Series(shap_val[0].values, index=feature_names).sort_values()
     top_protective = shap_series.head(3)
     top_risk = shap_series.tail(3)
@@ -350,11 +380,11 @@ with tab3:
 # ---------------------------------------------------------
 with tab4:
     st.subheader("Counterfactual 'What-If' Simulation")
-    st.markdown("If a loan application was rejected or flagged, what specific changes would make it creditworthy? Adjust the parameters below to see the risk score update live.")
+    st.markdown("If a loan application was rejected or flagged, what specific changes would make it creditworthy? Adjust the parameters below to observe real-time risk reduction.")
     
     base_dict = st.session_state["applicant_input"].copy()
     base_vec = build_feature_vector(base_dict)
-    base_prob = model.predict_proba(base_vec)[0, 1]
+    base_prob = float(model.predict_proba(base_vec)[0, 1])
     
     sim_c1, sim_c2 = st.columns(2)
     
@@ -373,7 +403,7 @@ with tab4:
         sim_dict['PRI.OVERDUE.ACCTS'] = 0
         
     sim_vec = build_feature_vector(sim_dict)
-    sim_prob = model.predict_proba(sim_vec)[0, 1]
+    sim_prob = float(model.predict_proba(sim_vec)[0, 1])
     risk_reduction = base_prob - sim_prob
     
     with sim_c2:
